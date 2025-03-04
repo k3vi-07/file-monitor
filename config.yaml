@@ -1,0 +1,30 @@
+monitor:
+  directories:
+    - "/var/www"
+  ignore:
+    files:
+      - "*.tmp"
+      - "*.log"
+    directories:
+      - "/var/www/cache"
+  events:
+    - create
+    - write
+    - delete
+
+webhook:
+  enabled: false
+  provider: "serverchan"
+  sendkey: "your_sendkey_here"
+  template: "default"
+
+email:
+  enabled: true
+  smtpHost: "smtp.example.com"
+  smtpPort: 587
+  username: "your_email@example.com"
+  password: "your_app_password"
+  from: "noreply@example.com"
+  to:
+    - "admin@example.com"
+    - "backup@example.com"
