@@ -1,16 +1,37 @@
 monitor:
   directories:
-    - "/var/www"
+    - "/Users/admin/Projects/file-monitor"
   ignore:
     files:
       - "*.tmp"
       - "*.log"
+    extensions:
+      - ".bak"
+      - ".swp"
+      - ".DS_Store"
+      - ".xls"
+      - ".xlsx"
+      - ".doc"
+      - ".docx"
+      - ".ppt"
+      - ".pptx"
+      - ".pdf"
+      - ".zip"
+      - ".rar"
+      - ".7z"
+      - ".tar"
+      - ".gz"
+      - ".bz2"
+      - ".jpg"
+      - ".jpeg"
+      - ".png"
+      - ".gif"
     directories:
-      - "/var/www/cache"
+      - "/Users/admin/Projects/file-monitor/logs"
   events:
     - create
     - write
-    - delete
+    # - delete
 
 webhook:
   enabled: false
@@ -19,7 +40,7 @@ webhook:
   template: "default"
 
 email:
-  enabled: true
+  enabled: false
   smtpHost: "smtp.example.com"
   smtpPort: 587
   username: "your_email@example.com"
@@ -28,3 +49,10 @@ email:
   to:
     - "admin@example.com"
     - "backup@example.com"
+
+logging:
+  file: "/Users/admin/Projects/file-monitor/logs/monitor.log"
+  maxSize: 10 # MB
+  maxBackups: 5
+  maxAge: 90 # days
+  compress: true
