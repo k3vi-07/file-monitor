@@ -1,0 +1,11 @@
+# 运行产物
+logs/
+dist/
+monitor
+monitor.exe
+
+# 系统文件
+.DS_Store
+
+# 本地真实配置（模板见 config.yaml.example）
+config.yaml

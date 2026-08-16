@@ -1,0 +1,42 @@
+monitor:
+  directories:
+    - "/var/www"            # 支持多目录，递归监控（含全部子目录）
+  ignore:
+    files:                  # 按文件名 glob 匹配（只匹配最后一级文件名）
+      - "*.tmp"
+      - ".DS_Store"
+    extensions:             # 按扩展名匹配（不区分大小写）
+      - ".log"
+      - ".bak"
+    directories:            # 绝对路径 = 前缀匹配，忽略整棵子树；相对名称 = 任意路径段匹配
+      - "/var/www/logs"
+      - "temp"
+      - "node_modules"
+  events:                   # 可选: create / write / remove / rename / chmod，留空 = 全部
+    - create
+    - write
+    - remove
+    - rename
+  debounceMs: 500           # 同一文件的事件合并窗口（毫秒），避免编辑器保存触发通知风暴
+
+webhook:
+  enabled: false
+  provider: "serverchan"          # 当前仅支持 serverchan
+  sendkey: "your_sendkey_here"    # 也可用环境变量 WEBHOOK_SENDKEY 注入
+
+email:
+  enabled: false
+  smtpHost: "smtp.example.com"
+  smtpPort: 587                   # 请使用 STARTTLS 端口(587)；465 隐式 TLS 暂不支持
+  username: "your_email@example.com"
+  password: "your_app_password"   # 也可用环境变量 EMAIL_PASSWORD 注入
+  from: "noreply@example.com"
+  to:
+    - "admin@example.com"
+
+logging:
+  file: "logs/monitor.log"
+  maxSize: 10        # 单个日志文件最大大小(MB)
+  maxBackups: 5      # 保留的旧日志文件数量
+  maxAge: 30         # 保留旧日志的最大天数
+  compress: true     # 是否压缩旧日志
