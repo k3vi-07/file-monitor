@@ -12,10 +12,30 @@
 - 优雅退出（SIGINT/SIGTERM）
 
 ## 安装要求
-- Go 1.24+ 开发环境
 - 系统要求：macOS/Linux kernel 4.4+/Windows 10+
+- 源码构建需要 Go 1.24+（直接下载二进制运行无此要求）
 
-## 快速开始
+## 下载安装
+从 [Releases](https://github.com/k3vi-07/file-monitor/releases) 页面下载对应平台的压缩包（内含二进制、配置模板和 README），校验和见附件 SHA256SUMS：
+
+| 平台 | 文件 |
+|---|---|
+| macOS Apple Silicon | monitor_darwin_arm64.tar.gz |
+| macOS Intel | monitor_darwin_amd64.tar.gz |
+| Linux x86_64 | monitor_linux_amd64.tar.gz |
+| Linux ARM64 | monitor_linux_arm64.tar.gz |
+| Windows x64 | monitor_windows_amd64.zip |
+
+解压后配置即可运行：
+```bash
+tar -xzf monitor_linux_amd64.tar.gz && cd monitor_linux_amd64
+cp config.yaml.example config.yaml   # 编辑配置（说明见下节）
+./monitor
+```
+
+macOS 首次运行如遇 Gatekeeper 拦截：`xattr -d com.apple.quarantine ./monitor`
+
+## 快速开始（源码构建）
 1. 复制配置文件模板：
 ```bash
 cp config.yaml.example config.yaml
@@ -99,4 +119,6 @@ config.go    配置定义、加载与启动期校验
 monitor.go   监控器：递归加目录、事件循环与过滤
 ignore.go    忽略规则匹配
 notify.go    通知渠道（邮件/Server酱）与异步防抖分发
+ignore_test.go   忽略规则、事件解析与配置校验单元测试
+notify_test.go   通知防抖合并单元测试
 ```
